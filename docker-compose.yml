@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  nuclei-scanner:
+    build: .
+    container_name: nuclei_scanner_api
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      # 如果 DefectDojo 和本服务在同一台机器，填 host.docker.internal:8080 或你的服务器内网 IP
+      # 如果在公司公网云端，直接填真实域名，例如 https://defectdojo.bestweb.asia/api/v2/import-scan/
+      - DEFECTDOJO_URL=http://host.docker.internal:8080/api/v2/import-scan/
+      - DEFECTDOJO_TOKEN=97e622b9e0dde514b4f6cfac0c6daf779dcdb541
+    volumes:
+      # 挂载宿主机目录，方便随时查看或备份各公司各月份的 scan_result.json
+      - ./scans:/app/scans
