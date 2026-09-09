@@ -27,12 +27,11 @@ def trigger_scan(payload: dict):
     cmd = [
         "nuclei",
         "-u", target_url,
-        "-fr",                            # 遵循重定向
-        "-tags", "tech,misc,exposure,cve",# 覆盖面更广（技术栈、敏感信息、基础漏洞）
+        "-fr",                                  # 跟随重定向
         "-H", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "-c", "25",                       # 并发数
-        "-rate-limit", "150",             # 限速，防止把小网站打死或触发安全拦截
-        "-timeout", "10",                 # 超时时间拉长到 10 秒，适应网络慢的客户
+        "-c", "25",
+        "-rate-limit", "150",
+        "-timeout", "10",
         "-json-export", output_path
     ]
     subprocess.run(cmd)
